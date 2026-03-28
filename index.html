@@ -1,491 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI for Finance — Book Your Free Assessment</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --deep:#0A1628;
-  --card:#0F1F35;
-  --border:rgba(0,212,170,0.12);
-  --accent:#00D4AA;
-  --accent2:#0091FF;
-  --text:#E8ECF1;
-  --muted:#8B99AE;
-  --input-bg:#0A1929;
-  --glow:rgba(0,212,170,0.08);
-}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--deep);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:40px 20px;
-  overflow-x:hidden;
-}
-
-/* === BACKGROUND EFFECTS === */
-.bg-grid{
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-  z-index:0;
-}
-.glow-orb{
-  position:fixed;
-  width:500px;height:500px;
-  border-radius:50%;
-  filter:blur(120px);
-  opacity:0.15;
-  pointer-events:none;
-  z-index:0;
-}
-.glow-orb.teal{background:var(--accent);top:-100px;left:-100px;}
-.glow-orb.blue{background:var(--accent2);bottom:-150px;right:-100px;}
-
-/* === CONTAINER === */
-.container{
-  position:relative;z-index:1;
-  width:100%;max-width:520px;
-}
-
-/* === LOGO === */
-.logo-area{text-align:center;margin-bottom:32px;}
-.logo-mark{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;}
-.logo-hex{
-  width:48px;height:48px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Sora',sans-serif;
-  font-weight:700;font-size:22px;
-  color:var(--deep);
-  transform:rotate(-5deg);
-  box-shadow:0 4px 20px rgba(0,212,170,0.3);
-}
-.logo-text{
-  font-family:'Sora',sans-serif;
-  font-weight:700;font-size:20px;
-  background:linear-gradient(135deg,var(--text),var(--accent));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  letter-spacing:-0.5px;
-}
-h1{
-  font-family:'Sora',sans-serif;
-  font-size:28px;font-weight:700;
-  line-height:1.2;
-  margin-bottom:10px;
-  letter-spacing:-0.5px;
-}
-.subtitle{
-  color:var(--muted);
-  font-size:15px;
-  line-height:1.5;
-}
-
-/* === CARD === */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:32px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.4);
-  animation:fadeUp 0.6s ease-out;
-}
-.badge{
-  display:inline-block;
-  background:rgba(0,212,170,0.08);
-  border:1px solid rgba(0,212,170,0.2);
-  color:var(--accent);
-  font-size:11px;font-weight:600;
-  padding:6px 14px;
-  border-radius:100px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  margin-bottom:24px;
-}
-
-/* === FORM === */
-.form-group{margin-bottom:18px;}
-.form-group label{
-  display:block;
-  font-size:12px;font-weight:500;
-  color:var(--muted);
-  margin-bottom:6px;
-  text-transform:uppercase;
-  letter-spacing:0.8px;
-}
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  padding:12px 16px;
-  background:var(--input-bg);
-  border:1px solid var(--border);
-  border-radius:10px;
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;
-  transition:all 0.25s ease;
-  outline:none;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(0,212,170,0.1);
-}
-.form-group input::placeholder,
-.form-group textarea::placeholder{color:rgba(139,153,174,0.4)}
-.form-group select{cursor:pointer;appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238B99AE' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 14px center;
-}
-.form-group select option{background:var(--deep);color:var(--text)}
-.form-group textarea{resize:vertical;min-height:80px;}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-
-/* === BUTTON === */
-.btn{
-  width:100%;
-  padding:14px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:var(--deep);
-  font-family:'Sora',sans-serif;
-  font-weight:700;font-size:15px;
-  border:none;border-radius:12px;
-  cursor:pointer;
-  transition:all 0.3s ease;
-  margin-top:8px;
-  letter-spacing:0.3px;
-}
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 30px rgba(0,212,170,0.3);
-}
-.btn:active{transform:translateY(0)}
-.btn:disabled{
-  opacity:0.6;
-  cursor:not-allowed;
-  transform:none;
-  box-shadow:none;
-}
-
-/* === FEATURES === */
-.features{
-  display:flex;gap:20px;
-  margin-top:28px;padding-top:24px;
-  border-top:1px solid var(--border);
-}
-.feature{flex:1;text-align:center;}
-.feature-icon{font-size:24px;margin-bottom:6px;}
-.feature-label{font-size:11px;color:var(--muted);line-height:1.3;}
-
-/* === CONTACT INFO === */
-.contact-strip{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:24px;
-  margin-top:24px;
-  padding:16px;
-  background:rgba(0,212,170,0.04);
-  border:1px solid rgba(0,212,170,0.1);
-  border-radius:12px;
-}
-.contact-item{
-  display:flex;align-items:center;gap:8px;
-  font-size:13px;color:var(--muted);
-}
-.contact-item .ci-icon{
-  width:32px;height:32px;
-  border-radius:8px;
-  background:rgba(0,212,170,0.1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;
-  flex-shrink:0;
-}
-.contact-item a{
-  color:var(--accent);
-  text-decoration:none;
-  transition:color 0.2s;
-}
-.contact-item a:hover{color:var(--text);}
-
-/* === SUCCESS === */
-.success{display:none;text-align:center;padding:40px 20px;}
-.success .check{
-  width:72px;height:72px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 20px;font-size:32px;color:var(--deep);
-  animation:popIn 0.5s cubic-bezier(0.68,-0.55,0.27,1.55);
-}
-.success h2{
-  font-family:'Sora',sans-serif;
-  font-size:24px;margin-bottom:10px;
-}
-.success p{color:var(--muted);font-size:14px;line-height:1.7;}
-
-/* === ERROR === */
-.error-msg{
-  display:none;
-  background:rgba(255,71,87,0.1);
-  border:1px solid rgba(255,71,87,0.3);
-  color:#ff4757;
-  padding:12px 16px;
-  border-radius:10px;
-  font-size:13px;
-  margin-top:12px;
-  text-align:center;
-}
-
-/* === FOOTER === */
-.footer{
-  text-align:center;margin-top:28px;
-  font-size:12px;color:rgba(139,153,174,0.5);
-}
-.footer a{color:var(--accent);text-decoration:none;}
-
-/* === SPINNER === */
-.spinner{
-  display:inline-block;
-  width:18px;height:18px;
-  border:2px solid rgba(10,22,40,0.3);
-  border-top-color:var(--deep);
-  border-radius:50%;
-  animation:spin 0.6s linear infinite;
-  vertical-align:middle;
-  margin-right:8px;
-}
-
-/* === ANIMATIONS === */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* === RESPONSIVE === */
-@media(max-width:540px){
-  .container{padding:0 4px;}
-  h1{font-size:22px;}
-  .row{grid-template-columns:1fr;}
-  .card{padding:24px 20px;}
-  .contact-strip{flex-direction:column;gap:12px;}
-  .features{flex-direction:column;gap:14px;}
-}
-</style>
-</head>
-<body>
-<div class="bg-grid"></div>
-<div class="glow-orb teal"></div>
-<div class="glow-orb blue"></div>
-
-<div class="container">
-  <div class="logo-area">
-    <div class="logo-mark">
-      <div class="logo-hex">₹</div>
-      <span class="logo-text">AI for Finance</span>
-    </div>
-    <h1>Book Your Free Automation Assessment</h1>
-    <p class="subtitle">Discover how AI can save your finance team hours every week.<br>Fill in your details and we'll reach out within 24 hours.</p>
-  </div>
-
-  <div class="card" id="formCard">
-    <span class="badge" id="badgeEl" style="display:none;"></span>
-
-    <!-- 
-      ============================================================
-      EMAIL INTEGRATION VIA WEB3FORMS (FREE)
-      ============================================================
-      HOW TO ACTIVATE:
-      1. Go to https://web3forms.com
-      2. Enter your email: cahimanshuair50@gmail.com
-      3. You'll receive an ACCESS KEY via email
-      4. Replace b9b333bf-85a2-475a-9355-896094b4fde3 below with that key
-      5. Done! Every submission goes straight to your inbox.
-      ============================================================
-    -->
-    <form id="regForm" action="https://api.web3forms.com/submit" method="POST">
-      
-      <!-- Web3Forms Access Key — REPLACE with your real key -->
-      <input type="hidden" name="access_key" value="b9b333bf-85a2-475a-9355-896094b4fde3">
-      
-      <!-- Customize the email subject line -->
-      <input type="hidden" name="subject" value="🚀 New AI for Finance Lead — Assessment Request">
-      
-      <!-- Where to redirect after submission -->
-      <input type="hidden" name="redirect" value="">
-      
-      <!-- Anti-spam honeypot -->
-      <input type="hidden" name="botcheck" style="display:none">
-
-      <div class="form-group">
-        <label>Company Name</label>
-        <input type="text" name="Company Name" placeholder="e.g., XYZ & Co" required>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label>Contact Person (SPOC)</label>
-          <input type="text" name="Contact Person" placeholder="Full Name" required>
-        </div>
-        <div class="form-group">
-          <label>Designation</label>
-          <input type="text" name="Designation" placeholder="e.g., CFO, Accounts Head">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" name="Email" placeholder="you@company.com" required>
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" name="Phone" placeholder="+91 98765 43210" required>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>What interests you most?</label>
-        <select name="Interest Area" required>
-          <option value="">Select an automation area</option>
-          <option value="Bank Reconciliation Automation">Bank Reconciliation Automation</option>
-          <option value="GST Reconciliation & ITC Optimization">GST Reconciliation & ITC Optimization</option>
-          <option value="Smart Compliance Calendar">Smart Compliance Calendar</option>
-          <option value="Financial Statement & MIS Dashboard">Financial Statement & MIS Dashboard</option>
-          <option value="Invoice & Data Extraction">Invoice & Data Extraction</option>
-          <option value="Board Resolution & Document Automation">Board Resolution & Document Automation</option>
-          <option value="Website & Digital Presence">Website & Digital Presence</option>
-          <option value="Excel, Macro, Word & PPT Automation">Excel, Macro, Word & PPT Automation</option>
-          <option value="Multiple / All of the above">Multiple / All of the above</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Anything else you'd like us to know? (Optional)</label>
-        <textarea name="Message" placeholder="Tell us about your current pain points, team size, or any specific challenges..."></textarea>
-      </div>
-
-      <button type="submit" class="btn" id="submitBtn">Request Free Assessment →</button>
-      <div class="error-msg" id="errorMsg"></div>
-    </form>
-
-    <div class="features" id="featuresEl">
-      <div class="feature"><div class="feature-icon">⚡</div><div class="feature-label">Detailed walkthrough</div></div>
-      <div class="feature"><div class="feature-icon">🎯</div><div class="feature-label">Tailored automation tips</div></div>
-      <div class="feature"><div class="feature-icon">🛠</div><div class="feature-label">Live demo on your data</div></div>
-    </div>
-
-    <!-- Contact Info Strip -->
-    <div class="contact-strip" id="contactEl">
-      <div class="contact-item">
-        <div class="ci-icon">✉</div>
-        <a href="mailto:cahimanshuair50@gmail.com">cahimanshuair50@gmail.com</a>
-      </div>
-      <div class="contact-item">
-        <div class="ci-icon">📞</div>
-        <a href="tel:+919618741462">+91 96187 41462</a>
-      </div>
-    </div>
-
-    <!-- Success State -->
-    <div class="success" id="successMsg">
-      <div class="check">✓</div>
-      <h2>You're In!</h2>
-      <p>Thank you for registering. We'll contact you within 24 hours to schedule your free automation assessment.<br><br>Meanwhile, feel free to reach out directly:</p>
-      <div class="contact-strip" style="margin-top:16px;">
-        <div class="contact-item">
-          <div class="ci-icon">✉</div>
-          <a href="mailto:cahimanshuair50@gmail.com">cahimanshuair50@gmail.com</a>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">📞</div>
-          <a href="tel:+919618741462">+91 96187 41462</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    Based in Madhapur, Hyderabad · <a href="mailto:cahimanshuair50@gmail.com">Get in touch</a>
-  </div>
-</div>
-
-<script>
-(function(){
-  const form = document.getElementById('regForm');
-  const btn = document.getElementById('submitBtn');
-  const errorEl = document.getElementById('errorMsg');
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Check if access key is still placeholder
-    const accessKey = form.querySelector('input[name="access_key"]').value;
-    if (accessKey === 'b9b333bf-85a2-475a-9355-896094b4fde3') {
-      // Fallback: use mailto if no API key set
-      const formData = new FormData(form);
-      const body = [];
-      for (const [key, val] of formData.entries()) {
-        if (key !== 'access_key' && key !== 'subject' && key !== 'redirect' && key !== 'botcheck' && val) {
-          body.push(key + ': ' + val);
-        }
-      }
-      const mailBody = encodeURIComponent(body.join('\n'));
-      const mailSubject = encodeURIComponent('New AI for Finance Lead — Assessment Request');
-      window.location.href = 'mailto:cahimanshuair50@gmail.com?subject=' + mailSubject + '&body=' + mailBody;
-      
-      // Show success anyway
-      showSuccess();
-      return;
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Finance — Book Your Free Assessment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+        --deep:#0A1628;
+        --card:#0F1F35;
+        --border:rgba(0,212,170,0.12);
+        --accent:#00D4AA;
+        --accent2:#0091FF;
+        --text:#E8ECF1;
+        --muted:#8B99AE;
+        --input-bg:#0A1929;
+        --glow:rgba(0,212,170,0.08);
     }
-
-    // Real Web3Forms submission
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Submitting...';
-    errorEl.style.display = 'none';
-
-    try {
-      const formData = new FormData(form);
-      const resp = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await resp.json();
-
-      if (data.success) {
-        showSuccess();
-      } else {
-        throw new Error(data.message || 'Submission failed');
-      }
-    } catch (err) {
-      errorEl.textContent = 'Something went wrong. Please try again or email us directly.';
-      errorEl.style.display = 'block';
-      btn.disabled = false;
-      btn.innerHTML = 'Request Free Assessment →';
+    body{
+        font-family:'DM Sans',sans-serif;
+        background:var(--deep);
+        color:var(--text);
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:40px 20px;
+        overflow-x:hidden;
     }
-  });
+    .bg-grid{
+        position:fixed;inset:0;
+        background-image:linear-gradient(rgba(0,212,170,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,170,0.03) 1px,transparent 1px);
+        background-size:60px 60px;
+        pointer-events:none;
+        z-index:0;
+    }
+    .glow-orb{
+        position:fixed;
+        width:500px;height:500px;
+        border-radius:50%;
+        filter:blur(120px);
+        opacity:0.15;
+        pointer-events:none;
+        z-index:0;
+    }
+    .glow-orb.teal{background:var(--accent);top:-100px;left:-100px;}
+    .glow-orb.blue{background:var(--accent2);bottom:-150px;right:-100px;}
+    .container{position:relative;z-index:1;width:100%;max-width:520px;}
+    .logo-area{text-align:center;margin-bottom:32px;}
+    .logo-mark{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;}
+    .logo-hex{
+        width:48px;height:48px;
+        background:linear-gradient(135deg,var(--accent),var(--accent2));
+        border-radius:12px;
+        display:flex;align-items:center;justify-content:center;
+        font-family:'Sora',sans-serif;
+        font-weight:700;font-size:22px;
+        color:var(--deep);
+        transform:rotate(-5deg);
+        box-shadow:0 4px 20px rgba(0,212,170,0.3);
+    }
+    .logo-text{
+        font-family:'Sora',sans-serif;
+        font-weight:700;font-size:20px;
+        background:linear-gradient(135deg,var(--text),var(--accent));
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+        letter-spacing:-0.5px;
+    }
+    h1{font-family:'Sora',sans-serif;font-size:28px;font-weight:700;line-height:1.2;margin-bottom:10px;letter-spacing:-0.5px;}
+    .subtitle{color:var(--muted);font-size:15px;line-height:1.5;}
+    .card{
+        background:var(--card);
+        border:1px solid var(--border);
+        border-radius:20px;
+        padding:32px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.4);
+        animation:fadeUp 0.6s ease-out;
+    }
+    .form-group{margin-bottom:18px;}
+    .form-group label{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.8px;}
+    .form-group input,.form-group select,.form-group textarea{
+        width:100%;padding:12px 16px;
+        background:var(--input-bg);
+        border:1px solid var(--border);
+        border-radius:10px;
+        color:var(--text);
+        font-family:'DM Sans',sans-serif;
+        font-size:14px;
+        transition:all 0.25s ease;
+        outline:none;
+    }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+        border-color:var(--accent);
+        box-shadow:0 0 0 3px rgba(0,212,170,0.1);
+    }
+    .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(139,153,174,0.4)}
+    .form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238B99AE' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+    .form-group select option{background:var(--deep);color:var(--text)}
+    .form-group textarea{resize:vertical;min-height:80px;}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .btn{
+        width:100%;padding:14px;
+        background:linear-gradient(135deg,var(--accent),var(--accent2));
+        color:var(--deep);
+        font-family:'Sora',sans-serif;
+        font-weight:700;font-size:15px;
+        border:none;border-radius:12px;
+        cursor:pointer;
+        transition:all 0.3s ease;
+        margin-top:8px;
+        letter-spacing:0.3px;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,170,0.3);}
+    .btn:active{transform:translateY(0)}
+    .btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;box-shadow:none;}
+    .features{display:flex;gap:20px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border);}
+    .feature{flex:1;text-align:center;}
+    .feature-icon{font-size:24px;margin-bottom:6px;}
+    .feature-label{font-size:11px;color:var(--muted);line-height:1.3;}
+    .contact-strip{
+        display:flex;align-items:center;justify-content:center;gap:24px;
+        margin-top:24px;padding:16px;
+        background:rgba(0,212,170,0.04);
+        border:1px solid rgba(0,212,170,0.1);
+        border-radius:12px;
+    }
+    .contact-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
+    .contact-item .ci-icon{width:32px;height:32px;border-radius:8px;background:rgba(0,212,170,0.1);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+    .contact-item a{color:var(--accent);text-decoration:none;transition:color 0.2s;}
+    .contact-item a:hover{color:var(--text);}
+    .success{display:none;text-align:center;padding:40px 20px;}
+    .success .check{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:32px;color:var(--deep);animation:popIn 0.5s cubic-bezier(0.68,-0.55,0.27,1.55);}
+    .success h2{font-family:'Sora',sans-serif;font-size:24px;margin-bottom:10px;}
+    .success p{color:var(--muted);font-size:14px;line-height:1.7;}
+    .error-msg{display:none;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.3);color:#ff4757;padding:12px 16px;border-radius:10px;font-size:13px;margin-top:12px;text-align:center;}
+    .footer{text-align:center;margin-top:28px;font-size:12px;color:rgba(139,153,174,0.5);}
+    .footer a{color:var(--accent);text-decoration:none;}
+    .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(10,22,40,0.3);border-top-color:var(--deep);border-radius:50%;animation:spin 0.6s linear infinite;vertical-align:middle;margin-right:8px;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:540px){
+        .container{padding:0 4px;}
+        h1{font-size:22px;}
+        .row{grid-template-columns:1fr;}
+        .card{padding:24px 20px;}
+        .contact-strip{flex-direction:column;gap:12px;}
+        .features{flex-direction:column;gap:14px;}
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-grid"></div>div>
+    <div class="glow-orb teal"></div>div>
+    <div class="glow-orb blue"></div>div>
+    <div class="container">
+        <div class="logo-area">
+              <div class="logo-mark">
+                      <div class="logo-hex">&#8377;</div>div>
+                      <span class="logo-text">AI for Finance</span>span>
+              </div>div>
+              <h1>Book Your Free Automation Assessment</h1>
+            <p class="subtitle">Discover how AI can save your finance team hours every week.<br>Fill in your details and we'll reach out within 24 hours.</p>p>
+        </div>div>
+      <div class="card" id="formCard">
+          <form id="regForm">
+                <input type="hidden" name="access_key" value="b9b333bf-85a2-475a-9355-896094b4fde3">
+                <input type="hidden" name="subject" value="New AI for Finance Lead - Assessment Request">
+                <input type="checkbox" name="botcheck" style="display:none">
+                <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" name="Company Name" placeholder="e.g., XYZ &amp; Co" required>
+                </div>div>
+                <div class="row">
+                        <div class="form-group">
+                                  <label>Contact Person (SPOC)</label>
+                                  <input type="text" name="Contact Person" placeholder="Full Name" required>
+                        </div>div>
+                        <div class="form-group">
+                                  <label>Designation</label>
+                                  <input type="text" name="Designation" placeholder="e.g., CFO, Accounts Head">
+                        </div>div>
+                </div>div>
+                <div class="row">
+                        <div class="form-group">
+                                  <label>Email Address</label>
+                                  <input type="email" name="Email" placeholder="you@company.com" required>
+                        </div>div>
+                        <div class="form-group">
+                                  <label>Phone Number</label>
+                                  <input type="tel" name="Phone" placeholder="+91 98765 43210" required>
+                        </div>div>
+                </div>div>
+                <div class="form-group">
+                        <label>What interests you most?</label>
+                        <select name="Interest Area" required>
+                                  <option value="">Select an automation area</option>option>
+                                  <option value="Bank Reconciliation Automation">Bank Reconciliation Automation</option>option>
+                                  <option value="GST Reconciliation &amp; ITC Optimization">GST Reconciliation &amp; ITC Optimization</option>option>
+                                  <option value="Smart Compliance Calendar">Smart Compliance Calendar</option>option>
+                                  <option value="Financial Statement &amp; MIS Dashboard">Financial Statement &amp; MIS Dashboard</option>option>
+                                  <option value="Invoice &amp; Data Extraction">Invoice &amp; Data Extraction</option>option>
+                                  <option value="Board Resolution &amp; Document Automation">Board Resolution &amp; Document Automation</option>option>
+                                  <option value="Website &amp; Digital Presence">Website &amp; Digital Presence</option>option>
+                                  <option value="Excel, Macro, Word &amp; PPT Automation">Excel, Macro, Word &amp; PPT Automation</option>option>
+                                  <option value="Multiple / All of the above">Multiple / All of the above</option>option>
+                        </select>select>
+                </div>div>
+                <div class="form-group">
+                        <label>Anything else you'd like us to know? (Optional)</label>
+                        <textarea name="Message" placeholder="Tell us about your current pain points, team size, or any specific challenges..."></textarea>
+                </div>div>
+                <button type="submit" class="btn" id="submitBtn">Request Free Assessment &#8594;</button>button>
+                <div class="error-msg" id="errorMsg"></div>div>
+          </form>form>
+          <div class="features" id="featuresEl">
+                <div class="feature"><div class="feature-icon">&#9889;</div>div><div class="feature-label">Detailed walkthrough</div>div></div>div>
+                <div class="feature"><div class="feature-icon">&#127919;</div>div><div class="feature-label">Tailored automation tips</div>div></div>div>
+                <div class="feature"><div class="feature-icon">&#128296;</div>div><div class="feature-label">Live demo on your data</div>div></div>div>
+          </div>div>
+          <div class="contact-strip" id="contactEl">
+                <div class="contact-item">
+                        <div class="ci-icon">&#9993;</div>div>
+                        <a href="mailto:cahimanshuair50@gmail.com">cahimanshuair50@gmail.com</a>a>
+                </div>div>
+                <div class="contact-item">
+                        <div class="ci-icon">&#128222;</div>div>
+                        <a href="tel:+919618741462">+91 96187 41462</a>a>
+                </div>div>
+          </div>div>
+          <div class="success" id="successMsg">
+                <div class="check">&#10003;</div>div>
+                <h2>You're In!</h2>
+                <p>Thank you for registering. We'll contact you within 24 hours to schedule your free automation assessment.<br><br>Meanwhile, feel free to reach out directly:</p>
+                <div class="contact-strip" style="margin-top:16px;">
+                        <div class="contact-item">
+                                  <div class="ci-icon">&#9993;</div>div>
+                                  <a href="mailto:cahimanshuair50@gmail.com">cahimanshuair50@gmail.com</a>a>
+                        </div>div>
+                        <div class="contact-item">
+                                  <div class="ci-icon">&#128222;</div>div>
+                                  <a href="tel:+919618741462">+91 96187 41462</a>a>
+                        </div>div>
+                </div>div>
+          </div>div>
+      </div>div>
+      <div class="footer">
+          Based in Madhapur, Hyderabad &middot; <a href="mailto:cahimanshuair50@gmail.com">Get in touch</a>a>
+      </div>div>
+    </div>div>
+  <script>
+    (function(){
+        var form = document.getElementById('regForm');
+        var btn = document.getElementById('submitBtn');
+        var errorEl = document.getElementById('errorMsg');
 
-  function showSuccess() {
-    form.style.display = 'none';
-    document.getElementById('badgeEl').style.display = 'none';
-    document.getElementById('featuresEl').style.display = 'none';
-    document.getElementById('contactEl').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
-  }
-})();
-</script>
-</body>
-</html>
+        form.addEventListener('submit', async function(e) {
+              e.preventDefault();
+              btn.disabled = true;
+              btn.innerHTML = '<span class="spinner"></span>Submitting...';
+              errorEl.style.display = 'none';
+
+              try {
+                      var formData = new FormData(form);
+                      var response = await fetch('https://api.web3forms.com/submit', {
+                                method: 'POST',
+                                body: formData
+                      });
+                      var data = await response.json();
+                      if (data.success) {
+                                form.style.display = 'none';
+                                document.getElementById('featuresEl').style.display = 'none';
+                                document.getElementById('contactEl').style.display = 'none';
+                                document.getElementById('successMsg').style.display = 'block';
+                      } else {
+                                throw new Error(data.message || 'Submission failed');
+                      }
+              } catch(err) {
+                      errorEl.textContent = 'Something went wrong. Please try again or email us directly.';
+                      errorEl.style.display = 'block';
+                      btn.disabled = false;
+                      btn.innerHTML = 'Request Free Assessment \u2192';
+              }
+        });
+    })();
+  </script>
+  </body>
+</html>html>
+  </script></p></label></label></h1>
+  </body>
+  </style></title>
+  </head>
